@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Models.Crud;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,26 @@ namespace Data
             
         }
 
+        public DbSet<Empleado> Empleados { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            // propiedades de las columnas
+            modelBuilder.Entity<Empleado>(tb =>
+            {
+                tb.HasKey(col => col.IdEmpleado);
+
+                tb.Property(col => col.IdEmpleado)
+                .UseIdentityColumn()
+                .ValueGeneratedOnAdd();
+
+                tb.Property(col => col.Nombre).HasMaxLength(20);
+                tb.Property(col => col.Apellido).HasMaxLength(20);
+                tb.Property(col => col.Correo).HasMaxLength(50);
+            });
+
+            // creacion de la tabla
+            modelBuilder.Entity<Empleado>().ToTable("Empleado");
         }
 
 

@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Crud\" />
     <Folder Include="Login\" />
   </ItemGroup>
 
