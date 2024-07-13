@@ -27,8 +27,17 @@ namespace Data
                 .UseIdentityColumn()
                 .ValueGeneratedOnAdd();
 
-            });
+                tb.Property(col => col.Nombre)
+                .HasMaxLength(50);
+                tb.Property(col => col.Apellido)
+                .HasMaxLength(50);
+                tb.Property(col => col.Correo)
+                .HasMaxLength(50);
+                tb.Property(col => col.Clave)
+                .HasMaxLength(50);
 
+            });
+            modelBuilder.Entity<Usuario>().ToTable("Usuario");
         }
 
 
