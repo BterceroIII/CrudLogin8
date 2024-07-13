@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Models.Login;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +15,22 @@ namespace Data
             
         }
 
+
+        public DbSet<Usuario> Usuarios { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Usuario>(tb =>
+            {
+                tb.HasKey(col => col.IdUsuario);
+                tb.Property(col => col.IdUsuario)
+                .UseIdentityColumn()
+                .ValueGeneratedOnAdd();
+
+            });
+
         }
+
 
 
     }

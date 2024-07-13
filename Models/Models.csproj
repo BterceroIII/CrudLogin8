@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Crud\" />
-    <Folder Include="Login\" />
   </ItemGroup>
 
 </Project>
