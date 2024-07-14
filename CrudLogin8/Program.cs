@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Data;
 using Services.Interfaces;
 using Services.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,13 @@ builder.Services.AddDbContext<AppDbContext>(option =>
 {
     option.UseSqlServer(builder.Configuration.GetConnectionString("CadenaSQL"));
     
+});
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(option =>{
+        option.LoginPath = "/Acceso/Login";
+
+        option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
 });
 
 var app = builder.Build();
@@ -35,6 +43,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Empleado}/{action=Lista}/{id?}");
+    pattern: "{controller=Acceso}/{action=Login}/{id?}");
 
 app.Run();
