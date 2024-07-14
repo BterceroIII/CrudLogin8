@@ -1,4 +1,7 @@
 ﻿using Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Models.Crud;
@@ -6,6 +9,7 @@ using Services.Interfaces;
 
 namespace CrudLogin8.Controllers
 {
+    [Authorize]
     public class EmpleadoController : Controller
     {
         private readonly IEmpleadoService _empleadoService;
@@ -57,5 +61,10 @@ namespace CrudLogin8.Controllers
             return RedirectToAction(nameof(Lista));
         }
 
+        public async Task<IActionResult> Salir()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login", "Acceso");
+        }
     }
 }
